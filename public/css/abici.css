@@ -49,11 +49,8 @@ body {
     height: 80px;
 }
 
-.nav-logo h2 {
-    font-size: 28px;
-    font-weight: 700;
-    color: #2563eb;
-    letter-spacing: -1px;
+.nav-logo img{
+    width: 70px;
 }
 
 .nav-menu {
@@ -495,6 +492,17 @@ body {
     min-height: 120px;
 }
 
+.terms-link {
+    color: #60a5fa;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+.terms-link:hover {
+    color: #93c5fd;
+    text-decoration: none;
+}
+
 /* Footer */
 .footer {
     background: #111827;
@@ -571,6 +579,26 @@ body {
     padding-top: 20px;
     text-align: center;
     color: rgba(255, 255, 255, 0.7);
+}
+
+/* Responsive styles for checkbox */
+@media (max-width: 768px) {
+    .checkbox-container {
+        font-size: 13px;
+        align-items: flex-start;
+    }
+    
+    .checkmark {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .checkbox-container input[type="checkbox"]:checked + .checkmark::after {
+        left: 5px;
+        top: 1px;
+        width: 5px;
+        height: 9px;
+    }
 }
 
 /* Responsive Design */

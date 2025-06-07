@@ -34,64 +34,101 @@ app.use(limiter);
 // Serve static files
 app.use(express.static('public'));
 
-// Email transporter configuration
-const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp.gmail.com',
-    port: process.env.SMTP_PORT || 587,
-    secure: false,
-    auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS
-    }
-});
+// Email transporter configuration with improved settings
+const createTransporter = () => {
+    // Try multiple SMTP configurations
+    const configs = [
+        // Gmail configuration
+        {
+            service: 'gmail',
+            auth: {
+                user: process.env.SMTP_USER,
+                pass: process.env.SMTP_PASS
+            },
+            tls: {
+                rejectUnauthorized: false
+            }
+        },
+        // Generic SMTP configuration with timeout and connection settings
+        {
+            host: process.env.SMTP_HOST || 'smtp.gmail.com',
+            port: parseInt(process.env.SMTP_PORT) || 587,
+            secure: process.env.SMTP_PORT === '465', // true for 465, false for other ports
+            auth: {
+                user: process.env.SMTP_USER,
+                pass: process.env.SMTP_PASS
+            },
+            tls: {
+                rejectUnauthorized: false,
+                ciphers: 'SSLv3'
+            },
+            connectionTimeout: 10000, // 10 seconds
+            greetingTimeout: 5000, // 5 seconds
+            socketTimeout: 10000, // 10 seconds
+            debug: process.env.NODE_ENV === 'development',
+            logger: process.env.NODE_ENV === 'development'
+        }
+    ];
 
-// Verify email configuration
-transporter.verify((error, success) => {
-    if (error) {
-        console.log('Email configuration error:', error);
+    // Use Gmail service if available, otherwise use generic SMTP
+    if (process.env.SMTP_HOST === 'smtp.gmail.com' || !process.env.SMTP_HOST) {
+        return nodemailer.createTransport(configs[0]);
     } else {
-        console.log('Email server is ready to take our messages');
+        return nodemailer.createTransport(configs[1]);
     }
-});
+};
+
+const transporter = createTransporter();
+
+// Enhanced email verification with better error handling
+const verifyEmailConfig = async () => {
+    try {
+        console.log('Verifying email configuration...');
+        console.log('SMTP Host:', process.env.SMTP_HOST || 'smtp.gmail.com');
+        console.log('SMTP Port:', process.env.SMTP_PORT || 587);
+        console.log('SMTP User:', process.env.SMTP_USER ? 'Set' : 'Not set');
+        console.log('SMTP Pass:', process.env.SMTP_PASS ? 'Set' : 'Not set');
+        
+        await transporter.verify();
+        console.log('✓ Email server is ready to take our messages');
+        return true;
+    } catch (error) {
+        console.error('✗ Email configuration error:', error.message);
+        console.error('Error code:', error.code);
+        
+        // Provide specific troubleshooting advice
+        if (error.code === 'ETIMEDOUT') {
+            console.error('\nTroubleshooting steps:');
+            console.error('1. Check your internet connection');
+            console.error('2. Verify SMTP server settings');
+            console.error('3. Check if firewall is blocking the connection');
+            console.error('4. For Gmail: Enable "Less secure app access" or use App Password');
+            console.error('5. Try using port 465 with secure: true for SSL');
+        } else if (error.code === 'EAUTH') {
+            console.error('\nAuthentication failed:');
+            console.error('1. Check username and password');
+            console.error('2. For Gmail: Use App Password instead of regular password');
+            console.error('3. Enable 2-factor authentication and generate App Password');
+        }
+        
+        return false;
+    }
+};
 
 // Routes
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'abici.html'));
 });
 
-app.get('/services', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'services.html'));
-});
-
 app.get('/about', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'about.html'));
-});
-
-app.get('/expertise', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'expertise.html'));
-});
-
-app.get('/case-studies', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'case-studies.html'));
-});
-
-app.get('/blog', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'blog.html'));
-});
-
-app.get('/careers', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'careers.html'));
-});
-
-app.get('/privacy', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'privacy.html'));
 });
 
 app.get('/terms', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'terms.html'));
 });
 
-// Contact form submission
+// Enhanced contact form submission with better error handling
 app.post('/contact', contactLimiter, async (req, res) => {
     try {
         const { name, email, company, message, phone, service } = req.body;
@@ -110,6 +147,17 @@ app.post('/contact', contactLimiter, async (req, res) => {
             return res.status(400).json({
                 success: false,
                 message: 'Please provide a valid email address'
+            });
+        }
+
+        // Check if email service is available before attempting to send
+        try {
+            await transporter.verify();
+        } catch (verifyError) {
+            console.error('Email service unavailable:', verifyError.message);
+            return res.status(503).json({
+                success: false,
+                message: 'Email service is temporarily unavailable. Please try again later or contact us directly at contact@abici.com'
             });
         }
 
@@ -217,24 +265,29 @@ app.post('/contact', contactLimiter, async (req, res) => {
         </html>
         `;
 
-        // Send email to admin
-        await transporter.sendMail({
-            from: `"ABICI Website" <${process.env.SMTP_USER}>`,
-            to: process.env.ADMIN_EMAIL,
-            subject: `New Contact Form Submission from ${name}`,
-            html: emailHtml,
-            replyTo: email
-        });
+        // Send emails with timeout handling
+        const emailPromises = [
+            // Send email to admin
+            transporter.sendMail({
+                from: `"ABICI Website" <${process.env.SMTP_USER}>`,
+                to: process.env.ADMIN_EMAIL,
+                subject: `New Contact Form Submission from ${name}`,
+                html: emailHtml,
+                replyTo: email
+            }),
+            // Send auto-reply to client
+            transporter.sendMail({
+                from: `"ABICI" <${process.env.SMTP_USER}>`,
+                to: email,
+                subject: 'Thank you for contacting ABICI',
+                html: autoReplyHtml
+            })
+        ];
 
-        // Send auto-reply to client
-        await transporter.sendMail({
-            from: `"ABICI" <${process.env.SMTP_USER}>`,
-            to: email,
-            subject: 'Thank you for contacting ABICI',
-            html: autoReplyHtml
-        });
+        // Wait for both emails with timeout
+        await Promise.all(emailPromises);
 
-        // Log the submission (in production, you might want to use a proper logging service)
+        // Log the submission
         console.log(`Contact form submission: ${name} (${email}) - ${new Date().toISOString()}`);
 
         res.json({
@@ -244,14 +297,24 @@ app.post('/contact', contactLimiter, async (req, res) => {
 
     } catch (error) {
         console.error('Contact form error:', error);
+        
+        // Provide more specific error messages
+        let errorMessage = 'Failed to send message. Please try again later or contact us directly.';
+        
+        if (error.code === 'ETIMEDOUT') {
+            errorMessage = 'Email service timeout. Please try again or contact us directly at contact@abici.com';
+        } else if (error.code === 'EAUTH') {
+            errorMessage = 'Email authentication failed. Please contact us directly at contact@abici.com';
+        }
+        
         res.status(500).json({
             success: false,
-            message: 'Failed to send message. Please try again later or contact us directly.'
+            message: errorMessage
         });
     }
 });
 
-// Newsletter subscription
+// Newsletter subscription with better error handling
 app.post('/newsletter', contactLimiter, async (req, res) => {
     try {
         const { email } = req.body;
@@ -268,6 +331,16 @@ app.post('/newsletter', contactLimiter, async (req, res) => {
             return res.status(400).json({
                 success: false,
                 message: 'Please provide a valid email address'
+            });
+        }
+
+        // Check email service availability
+        try {
+            await transporter.verify();
+        } catch (verifyError) {
+            return res.status(503).json({
+                success: false,
+                message: 'Email service is temporarily unavailable. Please try again later.'
             });
         }
 
@@ -328,7 +401,21 @@ app.use((error, req, res, next) => {
     });
 });
 
-app.listen(PORT, () => {
-    console.log(`ABICI server running on port ${PORT}`);
-    console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
-});
+// Initialize server
+const startServer = async () => {
+    // Verify email configuration on startup
+    const emailReady = await verifyEmailConfig();
+    
+    if (!emailReady) {
+        console.warn('⚠️  Server starting without email functionality');
+        console.warn('Contact forms will show appropriate error messages to users');
+    }
+    
+    app.listen(PORT, () => {
+        console.log(`ABICI server running on port ${PORT}`);
+        console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+        console.log(`Email status: ${emailReady ? '✓ Ready' : '✗ Not configured'}`);
+    });
+};
+
+startServer();

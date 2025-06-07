@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ABICI - Leading Management Consultancy</title>
-    <link rel="stylesheet" href="abici.css">
+    <link rel="stylesheet" href="css/abici.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -13,17 +13,17 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <h2>ABICI</h2>
+                <img src="images/abici logo.png" alt="logo">
             </div>
             <div class="nav-menu">
-                <a href="#home" class="nav-link" data-en="Home" data-sv="Hem">Home</a>
-                <a href="#services" class="nav-link" data-en="Services" data-sv="Tjänster">Services</a>
-                <a href="#about" class="nav-link" data-en="About" data-sv="Om oss">About</a>
-                <a href="#expertise" class="nav-link" data-en="Expertise" data-sv="Expertis">Expertise</a>
-                <a href="#contact" class="nav-link" data-en="Contact" data-sv="Kontakt">Contact</a>
+                <a href="#home" class="nav-link" data-sv="Hem" data-en="Home">Hem</a>
+                <a href="#services" class="nav-link" data-sv="Tjänster" data-en="Services">Tjänster</a>
+                <a href="/about" class="nav-link" data-sv="Om oss" data-en="About">Om oss</a>
+                <a href="#expertise" class="nav-link" data-sv="Expertis" data-en="Expertise">Expertis</a>
+                <a href="#contact" class="nav-link" data-sv="Kontakt" data-en="Contact">Kontakt</a>
                 <button class="lang-toggle" onclick="toggleLanguage()">
                     <i class="fas fa-globe"></i>
-                    <span id="lang-indicator">EN</span>
+                    <span id="lang-indicator">SV</span>
                 </button>
             </div>
             <div class="hamburger">
@@ -41,15 +41,15 @@
         </div>
         <div class="hero-content">
             <div class="container">
-                <h1 class="hero-title" data-en="Transforming Business Excellence Through Strategic Leadership" data-sv="Omvandlar Affärsexcellens Genom Strategiskt Ledarskap">
-                    Transforming Business Excellence Through Strategic Leadership
+                <h1 class="hero-title" data-sv="Omvandlar Affärsexcellens Genom Strategiskt Ledarskap" data-en="Transforming Business Excellence Through Strategic Leadership">
+                    Omvandlar Affärsexcellens Genom Strategiskt Ledarskap
                 </h1>
-                <p class="hero-subtitle" data-en="As lead auditors and management consultants, we deliver data-driven insights and strategic solutions that drive sustainable growth and operational excellence." data-sv="Som huvudrevisorer och managementkonsulter levererar vi datadrivna insikter och strategiska lösningar som driver hållbar tillväxt och operativ excellens.">
-                    As lead auditors and management consultants, we deliver data-driven insights and strategic solutions that drive sustainable growth and operational excellence.
+                <p class="hero-subtitle" data-sv="Som huvudrevisorer och managementkonsulter levererar vi datadrivna insikter och strategiska lösningar som driver hållbar tillväxt och operativ excellens." data-en="As lead auditors and management consultants, we deliver data-driven insights and strategic solutions that drive sustainable growth and operational excellence.">
+                    Som huvudrevisorer och managementkonsulter levererar vi datadrivna insikter och strategiska lösningar som driver hållbar tillväxt och operativ excellens.
                 </p>
                 <div class="hero-buttons">
-                    <button class="btn btn-primary" data-en="Get Started" data-sv="Kom igång">Get Started</button>
-                    <button class="btn btn-secondary" data-en="Learn More" data-sv="Läs mer">Learn More</button>
+                    <button class="btn btn-primary" data-sv="Kom igång" data-en="Get Started">Kom igång</button>
+                    <button class="btn btn-secondary" data-sv="Läs mer" data-en="Learn More">Läs mer</button>
                 </div>
             </div>
         </div>
@@ -59,9 +59,9 @@
     <section id="services" class="services">
         <div class="container">
             <div class="section-header">
-                <h2 data-en="Our Services" data-sv="Våra Tjänster">Our Services</h2>
-                <p data-en="Comprehensive consulting solutions tailored to your business needs" data-sv="Omfattande konsultlösningar skräddarsydda för dina affärsbehov">
-                    Comprehensive consulting solutions tailored to your business needs
+                <h2 data-sv="Våra Tjänster" data-en="Our Services">Våra Tjänster</h2>
+                <p data-sv="Omfattande konsultlösningar skräddarsydda för dina affärsbehov" data-en="Comprehensive consulting solutions tailored to your business needs">
+                    Omfattande konsultlösningar skräddarsydda för dina affärsbehov
                 </p>
             </div>
             <div class="services-grid">
@@ -69,54 +69,54 @@
                     <div class="service-icon">
                         <i class="fas fa-chart-line"></i>
                     </div>
-                    <h3 data-en="Strategic Planning" data-sv="Strategisk Planering">Strategic Planning</h3>
-                    <p data-en="Develop comprehensive strategies that align with your vision and drive measurable results through data-driven decision making." data-sv="Utveckla omfattande strategier som stämmer överens med din vision och driver mätbara resultat genom datadrivet beslutsfattande.">
-                        Develop comprehensive strategies that align with your vision and drive measurable results through data-driven decision making.
+                    <h3 data-sv="Strategisk Planering" data-en="Strategic Planning">Strategisk Planering</h3>
+                    <p data-sv="Utveckla omfattande strategier som stämmer överens med din vision och driver mätbara resultat genom datadrivet beslutsfattande." data-en="Develop comprehensive strategies that align with your vision and drive measurable results through data-driven decision making.">
+                        Utveckla omfattande strategier som stämmer överens med din vision och driver mätbara resultat genom datadrivet beslutsfattande.
                     </p>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-search-dollar"></i>
                     </div>
-                    <h3 data-en="Lead Auditing" data-sv="Huvudrevision">Lead Auditing</h3>
-                    <p data-en="Expert audit services ensuring compliance, risk management, and operational efficiency across all business processes." data-sv="Expertrevisionstjänster som säkerställer efterlevnad, riskhantering och operativ effektivitet i alla affärsprocesser.">
-                        Expert audit services ensuring compliance, risk management, and operational efficiency across all business processes.
+                    <h3 data-sv="Huvudrevision" data-en="Lead Auditing">Huvudrevision</h3>
+                    <p data-sv="Expertrevisionstjänster som säkerställer efterlevnad, riskhantering och operativ effektivitet i alla affärsprocesser." data-en="Expert audit services ensuring compliance, risk management, and operational efficiency across all business processes.">
+                        Expertrevisionstjänster som säkerställer efterlevnad, riskhantering och operativ effektivitet i alla affärsprocesser.
                     </p>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-cogs"></i>
                     </div>
-                    <h3 data-en="Process Optimization" data-sv="Processoptimering">Process Optimization</h3>
-                    <p data-en="Streamline operations and eliminate inefficiencies to maximize productivity and reduce costs while maintaining quality." data-sv="Effektivisera verksamheten och eliminera ineffektivitet för att maximera produktiviteten och minska kostnaderna samtidigt som kvaliteten bibehålls.">
-                        Streamline operations and eliminate inefficiencies to maximize productivity and reduce costs while maintaining quality.
+                    <h3 data-sv="Processoptimering" data-en="Process Optimization">Processoptimering</h3>
+                    <p data-sv="Effektivisera verksamheten och eliminera ineffektivitet för att maximera produktiviteten och minska kostnaderna samtidigt som kvaliteten bibehålls." data-en="Streamline operations and eliminate inefficiencies to maximize productivity and reduce costs while maintaining quality.">
+                        Effektivisera verksamheten och eliminera ineffektivitet för att maximera produktiviteten och minska kostnaderna samtidigt som kvaliteten bibehålls.
                     </p>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-users"></i>
                     </div>
-                    <h3 data-en="Change Management" data-sv="Förändringsledning">Change Management</h3>
-                    <p data-en="Guide your organization through transformation with structured approaches that ensure successful adoption and minimal disruption." data-sv="Vägled din organisation genom transformation med strukturerade tillvägagångssätt som säkerställer framgångsrik adoption och minimal störning.">
-                        Guide your organization through transformation with structured approaches that ensure successful adoption and minimal disruption.
+                    <h3 data-sv="Förändringsledning" data-en="Change Management">Förändringsledning</h3>
+                    <p data-sv="Vägled din organisation genom transformation med strukturerade tillvägagångssätt som säkerställer framgångsrik adoption och minimal störning." data-en="Guide your organization through transformation with structured approaches that ensure successful adoption and minimal disruption.">
+                        Vägled din organisation genom transformation med strukturerade tillvägagångssätt som säkerställer framgångsrik adoption och minimal störning.
                     </p>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3 data-en="Risk Management" data-sv="Riskhantering">Risk Management</h3>
-                    <p data-en="Identify, assess, and mitigate business risks while developing robust frameworks for ongoing risk monitoring and control." data-sv="Identifiera, bedöma och mildra affärsrisker samtidigt som robusta ramverk utvecklas för pågående riskövervakning och kontroll.">
-                        Identify, assess, and mitigate business risks while developing robust frameworks for ongoing risk monitoring and control.
+                    <h3 data-sv="Riskhantering" data-en="Risk Management">Riskhantering</h3>
+                    <p data-sv="Identifiera, bedöma och mildra affärsrisker samtidigt som robusta ramverk utvecklas för pågående riskövervakning och kontroll." data-en="Identify, assess, and mitigate business risks while developing robust frameworks for ongoing risk monitoring and control.">
+                        Identifiera, bedöma och mildra affärsrisker samtidigt som robusta ramverk utvecklas för pågående riskövervakning och kontroll.
                     </p>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-rocket"></i>
                     </div>
-                    <h3 data-en="Performance Enhancement" data-sv="Prestandaförbättring">Performance Enhancement</h3>
-                    <p data-en="Boost organizational performance through targeted interventions, KPI optimization, and continuous improvement methodologies." data-sv="Öka organisationens prestanda genom riktade interventioner, KPI-optimering och kontinuerliga förbättringsmetoder.">
-                        Boost organizational performance through targeted interventions, KPI optimization, and continuous improvement methodologies.
+                    <h3 data-sv="Prestandaförbättring" data-en="Performance Enhancement">Prestandaförbättring</h3>
+                    <p data-sv="Öka organisationens prestanda genom riktade interventioner, KPI-optimering och kontinuerliga förbättringsmetoder." data-en="Boost organizational performance through targeted interventions, KPI optimization, and continuous improvement methodologies.">
+                        Öka organisationens prestanda genom riktade interventioner, KPI-optimering och kontinuerliga förbättringsmetoder.
                     </p>
                 </div>
             </div>
@@ -128,25 +128,25 @@
         <div class="container">
             <div class="about-content">
                 <div class="about-text">
-                    <h2 data-en="About ABICI" data-sv="Om ABICI">About ABICI</h2>
-                    <p data-en="With decades of combined experience in management consulting and lead auditing, ABICI stands as a trusted partner for organizations seeking transformational change and sustainable growth." data-sv="Med decennier av kombinerad erfarenhet inom managementkonsultation och huvudrevision står ABICI som en pålitlig partner för organisationer som söker transformativ förändring och hållbar tillväxt.">
-                        With decades of combined experience in management consulting and lead auditing, ABICI stands as a trusted partner for organizations seeking transformational change and sustainable growth.
+                    <h2 data-sv="Om ABICI" data-en="About ABICI">Om ABICI</h2>
+                    <p data-sv="Med decennier av kombinerad erfarenhet inom managementkonsultation och huvudrevision står ABICI som en pålitlig partner för organisationer som söker transformativ förändring och hållbar tillväxt." data-en="With decades of combined experience in management consulting and lead auditing, ABICI stands as a trusted partner for organizations seeking transformational change and sustainable growth.">
+                        Med decennier av kombinerad erfarenhet inom managementkonsultation och huvudrevision står ABICI som en pålitlig partner för organisationer som söker transformativ förändring och hållbar tillväxt.
                     </p>
-                    <p data-en="Our expertise spans across industries, from Fortune 500 companies to emerging startups, delivering tailored solutions that drive measurable results and lasting impact." data-sv="Vår expertis sträcker sig över branscher, från Fortune 500-företag till framväxande startups, och levererar skräddarsydda lösningar som driver mätbara resultat och varaktig påverkan.">
-                        Our expertise spans across industries, from Fortune 500 companies to emerging startups, delivering tailored solutions that drive measurable results and lasting impact.
+                    <p data-sv="Vår expertis sträcker sig över branscher, från Fortune 500-företag till framväxande startups, och levererar skräddarsydda lösningar som driver mätbara resultat och varaktig påverkan." data-en="Our expertise spans across industries, from Fortune 500 companies to emerging startups, delivering tailored solutions that drive measurable results and lasting impact.">
+                        Vår expertis sträcker sig över branscher, från Fortune 500-företag till framväxande startups, och levererar skräddarsydda lösningar som driver mätbara resultat och varaktig påverkan.
                     </p>
                     <div class="stats">
                         <div class="stat">
                             <h3>500+</h3>
-                            <p data-en="Projects Completed" data-sv="Genomförda Projekt">Projects Completed</p>
+                            <p data-sv="Genomförda Projekt" data-en="Projects Completed">Genomförda Projekt</p>
                         </div>
                         <div class="stat">
                             <h3>15+</h3>
-                            <p data-en="Years Experience" data-sv="Års Erfarenhet">Years Experience</p>
+                            <p data-sv="Års Erfarenhet" data-en="Years Experience">Års Erfarenhet</p>
                         </div>
                         <div class="stat">
                             <h3>98%</h3>
-                            <p data-en="Client Satisfaction" data-sv="Kundnöjdhet">Client Satisfaction</p>
+                            <p data-sv="Kundnöjdhet" data-en="Client Satisfaction">Kundnöjdhet</p>
                         </div>
                     </div>
                 </div>
@@ -161,45 +161,45 @@
     <section id="expertise" class="expertise">
         <div class="container">
             <div class="section-header">
-                <h2 data-en="Our Expertise" data-sv="Vår Expertis">Our Expertise</h2>
-                <p data-en="Industry-leading knowledge across multiple sectors" data-sv="Branschledande kunskap inom flera sektorer">
-                    Industry-leading knowledge across multiple sectors
+                <h2 data-sv="Vår Expertis" data-en="Our Expertise">Vår Expertis</h2>
+                <p data-sv="Branschledande kunskap inom flera sektorer" data-en="Industry-leading knowledge across multiple sectors">
+                    Branschledande kunskap inom flera sektorer
                 </p>
             </div>
             <div class="expertise-grid">
                 <div class="expertise-card">
                     <img src="images/DALL·E 2025-03-04 18.19.58 - A dramatic scene of a large amount of Nigerian Naira currency falling from the sky. The bills are in various denominations, floating and scattering in.webp" alt="Professional team meeting">
                     <div class="expertise-content">
-                        <h3 data-en="Financial Services" data-sv="Finansiella Tjänster">Financial Services</h3>
-                        <p data-en="Regulatory compliance, risk assessment, and performance optimization for financial institutions." data-sv="Regelefterlevnad, riskbedömning och prestandaoptimering för finansiella institutioner.">
-                            Regulatory compliance, risk assessment, and performance optimization for financial institutions.
+                        <h3 data-sv="Finansiella Tjänster" data-en="Financial Services">Finansiella Tjänster</h3>
+                        <p data-sv="Regelefterlevnad, riskbedömning och prestandaoptimering för finansiella institutioner." data-en="Regulatory compliance, risk assessment, and performance optimization for financial institutions.">
+                            Regelefterlevnad, riskbedömning och prestandaoptimering för finansiella institutioner.
                         </p>
                     </div>
                 </div>
                 <div class="expertise-card">
                     <img src="images/ChatGPT Image Apr 8, 2025, 08_58_40 PM.png" alt="Professional team meeting">
                     <div class="expertise-content">
-                        <h3 data-en="Healthcare" data-sv="Hälsovård">Healthcare</h3>
-                        <p data-en="Quality management, operational efficiency, and compliance auditing for healthcare organizations." data-sv="Kvalitetsledning, operativ effektivitet och efterlevnadsrevision för vårdorganisationer.">
-                            Quality management, operational efficiency, and compliance auditing for healthcare organizations.
+                        <h3 data-sv="Hälsovård" data-en="Healthcare">Hälsovård</h3>
+                        <p data-sv="Kvalitetsledning, operativ effektivitet och efterlevnadsrevision för vårdorganisationer." data-en="Quality management, operational efficiency, and compliance auditing for healthcare organizations.">
+                            Kvalitetsledning, operativ effektivitet och efterlevnadsrevision för vårdorganisationer.
                         </p>
                     </div>
                 </div>
                 <div class="expertise-card">
                     <img src="images/k-12-tech-innovation-news.jpeg" alt="Professional team meeting">
                     <div class="expertise-content">
-                        <h3 data-en="Technology" data-sv="Teknologi">Technology</h3>
-                        <p data-en="Digital transformation, process automation, and strategic technology implementation." data-sv="Digital transformation, processautomation och strategisk teknikimplementering.">
-                            Digital transformation, process automation, and strategic technology implementation.
+                        <h3 data-sv="Teknologi" data-en="Technology">Teknologi</h3>
+                        <p data-sv="Digital transformation, processautomation och strategisk teknikimplementering." data-en="Digital transformation, process automation, and strategic technology implementation.">
+                            Digital transformation, processautomation och strategisk teknikimplementering.
                         </p>
                     </div>
                 </div>
                 <div class="expertise-card">
                     <img src="images/manufacturing.jpg" alt="Professional team meeting">
                     <div class="expertise-content">
-                        <h3 data-en="Manufacturing" data-sv="Tillverkning">Manufacturing</h3>
-                        <p data-en="Lean operations, supply chain optimization, and quality assurance systems." data-sv="Lean-verksamhet, optimering av leveranskedjan och kvalitetssäkringssystem.">
-                            Lean operations, supply chain optimization, and quality assurance systems.
+                        <h3 data-sv="Tillverkning" data-en="Manufacturing">Tillverkning</h3>
+                        <p data-sv="Lean-verksamhet, optimering av leveranskedjan och kvalitetssäkringssystem." data-en="Lean operations, supply chain optimization, and quality assurance systems.">
+                            Lean-verksamhet, optimering av leveranskedjan och kvalitetssäkringssystem.
                         </p>
                     </div>
                 </div>
@@ -212,9 +212,9 @@
         <div class="container">
             <div class="contact-content">
                 <div class="contact-info">
-                    <h2 data-en="Get In Touch" data-sv="Kontakta Oss">Get In Touch</h2>
-                    <p data-en="Ready to transform your business? Let's discuss how ABICI can help you achieve your goals." data-sv="Redo att transformera ditt företag? Låt oss diskutera hur ABICI kan hjälpa dig att uppnå dina mål.">
-                        Ready to transform your business? Let's discuss how ABICI can help you achieve your goals.
+                    <h2 data-sv="Kontakta Oss" data-en="Get In Touch">Kontakta Oss</h2>
+                    <p data-sv="Redo att transformera ditt företag? Låt oss diskutera hur ABICI kan hjälpa dig att uppnå dina mål." data-en="Ready to transform your business? Let's discuss how ABICI can help you achieve your goals.">
+                        Redo att transformera ditt företag? Låt oss diskutera hur ABICI kan hjälpa dig att uppnå dina mål.
                     </p>
                     <div class="contact-details">
                         <div class="contact-item">
@@ -223,29 +223,51 @@
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-phone"></i>
-                            <span>+46 8 123 456 78</span>
+                            <span>559187-8268</span>
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>Stockholm, Sweden</span>
+                            <span> Ledungsgatan 2 <br>
+                                    217 74 Malmö </span>
                         </div>
                     </div>
                 </div>
+                
                 <div class="contact-form">
                     <form id="contactForm">
                         <div class="form-group">
-                            <input type="text" id="name" name="name" placeholder="Your Name" data-en-placeholder="Your Name" data-sv-placeholder="Ditt Namn" required>
+                            <input type="text" id="name" name="name" placeholder="Ditt Namn" data-sv-placeholder="Ditt Namn" data-en-placeholder="Your Name" required>
                         </div>
                         <div class="form-group">
-                            <input type="email" id="email" name="email" placeholder="Your Email" data-en-placeholder="Your Email" data-sv-placeholder="Din E-post" required>
+                            <input type="email" id="email" name="email" placeholder="Din E-post" data-sv-placeholder="Din E-post" data-en-placeholder="Your Email" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" id="company" name="company" placeholder="Company Name" data-en-placeholder="Company Name" data-sv-placeholder="Företagsnamn">
+                            <input type="text" id="company" name="company" placeholder="Företagsnamn" data-sv-placeholder="Företagsnamn" data-en-placeholder="Company Name">
                         </div>
                         <div class="form-group">
-                            <textarea id="message" name="message" rows="5" placeholder="Your Message" data-en-placeholder="Your Message" data-sv-placeholder="Ditt Meddelande" required></textarea>
+                            <input type="tel" id="phone" name="phone" placeholder="telefonnummer" pattern="[0-9]{7,15}" maxlength="15" data-sv-placeholder="telefonnummer" data-en-placeholder="phone number" required>
                         </div>
-                        <button type="submit" class="btn btn-primary" data-en="Send Message" data-sv="Skicka Meddelande">Send Message</button>
+                        <div class="form-group">
+                            <textarea id="message" name="message" rows="5" placeholder="Ditt Meddelande" data-sv-placeholder="Ditt Meddelande" data-en-placeholder="Your Message" required></textarea>
+                        </div>
+                        <div class="form-group terms-text">
+                            <p class="terms-notice">
+                                <span data-sv="Genom att skicka detta meddelande godkänner du ABICI:s " data-en="By sending this message, you agree to ABICI's ">
+                                    Genom att skicka detta meddelande godkänner du ABICI:s 
+                                </span>
+                                <a href="terms.html#terms" target="_blank" class="terms-link" data-sv="Villkor och Bestämmelser" data-en="Terms & Conditions">
+                                    Villkor och Bestämmelser
+                                </a>
+                                <span data-sv=" och " data-en=" and "> och </span>
+                                <a href="terms.html#privacy" target="_blank" class="terms-link" data-sv="Integritetspolicy" data-en="Privacy Policy">
+                                    Integritetspolicy
+                                </a>
+                                <span>.</span>
+                            </p>
+                        </div>
+                        <button type="submit" class="btn btn-primary" data-sv="Skicka Meddelande" data-en="Send Message">
+                            Skicka Meddelande
+                        </button>
                     </form>
                 </div>
             </div>
@@ -257,39 +279,31 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>ABICI</h3>
-                    <p data-en="Leading management consultancy delivering strategic excellence and audit leadership." data-sv="Ledande managementkonsultföretag som levererar strategisk excellens och revisionsledarskap.">
-                        Leading management consultancy delivering strategic excellence and audit leadership.
-                    </p>
-                </div>
-                <div class="footer-section">
-                    <h4 data-en="Services" data-sv="Tjänster">Services</h4>
+                    <h4 data-sv="Tjänster" data-en="Services">Tjänster</h4>
                     <ul>
-                        <li><a href="#" data-en="Strategic Planning" data-sv="Strategisk Planering">Strategic Planning</a></li>
-                        <li><a href="#" data-en="Lead Auditing" data-sv="Huvudrevision">Lead Auditing</a></li>
-                        <li><a href="#" data-en="Process Optimization" data-sv="Processoptimering">Process Optimization</a></li>
-                        <li><a href="#" data-en="Risk Management" data-sv="Riskhantering">Risk Management</a></li>
+                        <li><a href="#" data-sv="Strategisk Planering" data-en="Strategic Planning">Strategisk Planering</a></li>
+                        <li><a href="#" data-sv="Huvudrevision" data-en="Lead Auditing">Huvudrevision</a></li>
+                        <li><a href="#" data-sv="Processoptimering" data-en="Process Optimization">Processoptimering</a></li>
+                        <li><a href="#" data-sv="Riskhantering" data-en="Risk Management">Riskhantering</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h4 data-en="Contact" data-sv="Kontakt">Contact</h4>
+                    <h4 data-sv="Juridiskt" data-en="Legal">Juridiskt</h4>
+                    <ul>
+                        <li><a href="terms.html#terms" data-sv="Villkor och Bestämmelser" data-en="Terms & Conditions">Villkor och Bestämmelser</a></li>
+                        <li><a href="terms.html#privacy" data-sv="Integritetspolicy" data-en="Privacy Policy">Integritetspolicy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 data-sv="Kontakt" data-en="Contact">Kontakt</h4>
                     <ul>
                         <li>contact@abici.com</li>
-                        <li>+46 8 123 456 78</li>
                         <li>Stockholm, Sweden</li>
                     </ul>
                 </div>
-                <div class="footer-section">
-                    <h4 data-en="Follow Us" data-sv="Följ Oss">Follow Us</h4>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                    </div>
-                </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 ABICI. <span data-en="All rights reserved." data-sv="Alla rättigheter förbehållna.">All rights reserved.</span></p>
+                <p>&copy; 2025 ABICI. <span data-sv="Alla rättigheter förbehållna." data-en="All rights reserved.">Alla rättigheter förbehållna.</span></p>
             </div>
         </div>
     </footer>

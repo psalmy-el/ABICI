@@ -1,0 +1,206 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Georgia', serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #fafafa;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    background: white;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid #2c5aa0;
+}
+
+.company-logo {
+    max-width: 200px;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.language-controls {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.lang-toggle {
+    background: #2c5aa0;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.lang-toggle:hover {
+    background: #1e3f73;
+}
+
+.home-button {
+    background: #2c5aa0;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+}
+
+.home-button:hover {
+    background: #1e3f73;
+}
+
+.document-title {
+    font-size: 1.8em;
+    color: #555;
+    font-weight: 300;
+}
+
+.nav-tabs {
+    display: flex;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #ddd;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 15px 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    color: #666;
+    transition: all 0.3s ease;
+}
+
+.tab-button.active {
+    color: #2c5aa0;
+    border-bottom: 3px solid #2c5aa0;
+}
+
+.tab-button:hover {
+    background-color: #f8f9fa;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+h1 {
+    color: #2c5aa0;
+    font-size: 2em;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 10px;
+}
+
+h2 {
+    color: #2c5aa0;
+    font-size: 1.4em;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+h3 {
+    color: #495057;
+    font-size: 1.2em;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+p {
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+ul, ol {
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+li {
+    margin-bottom: 8px;
+}
+
+.last-updated {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-left: 4px solid #2c5aa0;
+    margin-bottom: 30px;
+    font-style: italic;
+}
+
+.important-notice {
+    background-color: #fff3cd;
+    border: 1px solid #ffeaa7;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 5px;
+}
+
+.contact-info {
+    background-color: #e9ecef;
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 30px;
+}
+
+.section-divider {
+    height: 2px;
+    background: linear-gradient(to right, #2c5aa0, #74b9ff);
+    margin: 40px 0;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 20px 15px;
+    }
+    
+    .company-logo {
+        max-width: 150px;
+    }
+    
+    .language-controls {
+        position: static;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+    
+    .tab-button {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+}
