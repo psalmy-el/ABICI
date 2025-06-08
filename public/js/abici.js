@@ -395,6 +395,11 @@ async function handleFormSubmit(e) {
     const formData = new FormData(e.target);
     const formValues = Object.fromEntries(formData);
     
+    // IMPORTANT: Add the current language to the form data
+    formValues.language = currentLanguage;
+    
+    console.log('Form submission with language:', currentLanguage, formValues);
+    
     // Validate form first
     if (!validateForm(formValues)) {
         showMessage('error', currentLanguage === 'en' ? 'Please fill in all required fields.' : 'Vänligen fyll i alla obligatoriska fält.');
@@ -532,7 +537,10 @@ async function handleNewsletterSubmit(e) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email })
+            body: JSON.stringify({ 
+                email, 
+                language: currentLanguage // Add language to newsletter subscription too
+            })
         });
         
         const result = await response.json();
