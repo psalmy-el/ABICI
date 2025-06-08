@@ -627,6 +627,10 @@ body {
         display: flex;
     }
     
+    .lang-toggle{
+        margin-bottom: 20px;
+    }
+
     .nav-menu {
         position: fixed;
         left: -100%;
