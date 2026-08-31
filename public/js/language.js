@@ -1,8 +1,15 @@
 // Updated language.js - Global Language Manager with persistent storage
 class LanguageManager {
-    constructor() {
+        constructor() {
         this.storageKey = 'abici-language-global';
-        this.currentLanguage = this.getStoredLanguage() || 'sv'; // Default to Swedish
+        this.currentLanguage = 'sv'; // Default first
+        
+        // Then try to get stored language
+        const storedLang = this.getStoredLanguage();
+        if (storedLang === 'sv' || storedLang === 'en') {
+            this.currentLanguage = storedLang;
+        }
+        
         this.init();
     }
 
@@ -143,11 +150,18 @@ class LanguageManager {
         console.log('Language changed from', oldLanguage, 'to', language);
     }
 
-    // Update language indicator
+   // Update language indicator
     updateLanguageIndicator() {
+        // Ensure we have a valid language
+        if (!this.currentLanguage || (this.currentLanguage !== 'sv' && this.currentLanguage !== 'en')) {
+            this.currentLanguage = 'sv'; // Force default to Swedish
+        }
+        
         const indicators = document.querySelectorAll('#lang-indicator, .lang-indicator');
+        
         indicators.forEach(indicator => {
-            indicator.textContent = this.currentLanguage.toUpperCase();
+            const langText = this.currentLanguage.toUpperCase();
+            indicator.textContent = langText;
         });
     }
 

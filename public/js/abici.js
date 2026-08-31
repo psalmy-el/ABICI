@@ -1,7 +1,7 @@
-// Updated abici.js - Main page JavaScript with global language management
-
+// Updated abici.js - Traditional scrolling website with smooth navigation
 // Global variables
 let isScrolled = false;
+let currentSection = 'home'; // Track current active section
 
 // DOM Content Loaded
 document.addEventListener('DOMContentLoaded', function() {
@@ -10,44 +10,133 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Initialize all website functionality
 function initializeWebsite() {
-    setupLanguageSystem(); // Setup language first before other systems
+    setupLanguageSystem();
     setupScrollEffects();
     setupMobileMenu();
-    setupSmoothScrolling();
+    setupSmoothScrolling(); // Changed back to smooth scrolling
     setupFormHandling();
     setupAnimations();
     setupHeroButtons();
+    // Remove initializeSectionDisplay() - let all sections be visible
+}
+
+// Setup smooth scrolling navigation
+function setupSmoothScrolling() {
+    const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
+    const footerLinks = document.querySelectorAll('.footer a[href^="#"]');
+    
+    // Handle navigation links
+    navLinks.forEach(link => {
+        link.addEventListener('click', handleSmoothScroll);
+    });
+    
+    // Handle footer links
+    footerLinks.forEach(link => {
+        link.addEventListener('click', handleSmoothScroll);
+    });
+    
+    // Setup scroll spy for active nav links
+    setupScrollSpy();
+}
+
+// Handle smooth scroll navigation
+function handleSmoothScroll(e) {
+    e.preventDefault();
+    
+    const targetId = e.target.getAttribute('href').substring(1); // Remove #
+    const targetSection = document.getElementById(targetId);
+    
+    if (!targetSection) {
+        console.warn(`Section with ID "${targetId}" not found`);
+        return;
+    }
+    
+    // Calculate offset for fixed navbar
+    const navbarHeight = document.querySelector('.navbar').offsetHeight;
+    const targetPosition = targetSection.offsetTop - navbarHeight;
+    
+    // Smooth scroll to target
+    window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+    });
+    
+    // Update current section
+    currentSection = targetId;
+    updateActiveNavLink(targetId);
+    
+    // Close mobile menu if open
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    if (hamburger && navMenu) {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+    }
+}
+
+// Setup scroll spy to highlight active nav links
+function setupScrollSpy() {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
+    
+    window.addEventListener('scroll', () => {
+        let current = '';
+        const scrollPosition = window.pageYOffset + 100; // Offset for navbar
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                current = section.getAttribute('id');
+            }
+        });
+        
+        if (current && current !== currentSection) {
+            currentSection = current;
+            updateActiveNavLink(current);
+        }
+    });
+}
+
+// Update active navigation link
+function updateActiveNavLink(sectionId) {
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${sectionId}`) {
+            link.classList.add('active');
+        }
+    });
 }
 
 // Setup language system using global manager
 function setupLanguageSystem() {
-    // Use the global language manager
     if (window.languageManager) {
-        // Setup the language toggle button
         window.languageManager.setupLanguageToggle();
-        
-        // Translate the page based on current language
         window.languageManager.translatePage();
-        
         console.log('Language system initialized with global manager');
-        console.log('Current language:', window.languageManager.getCurrentLanguage());
     } else {
-        console.error('Global language manager not found! Make sure to include the language manager script first.');
+        console.error('Global language manager not found!');
     }
 }
 
-// Setup hero buttons functionality
+// Setup hero buttons functionality - updated for smooth scrolling
 function setupHeroButtons() {
     const getStartedBtn = document.querySelector('.hero-buttons .btn-primary');
     const learnMoreBtn = document.querySelector('.hero-buttons .btn-secondary');
     
     if (getStartedBtn) {
-        getStartedBtn.addEventListener('click', () => {
+        getStartedBtn.addEventListener('click', (e) => {
+            e.preventDefault();
             const contactSection = document.getElementById('contact');
             if (contactSection) {
-                const offsetTop = contactSection.offsetTop - 80;
+                const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                const targetPosition = contactSection.offsetTop - navbarHeight;
+                
                 window.scrollTo({
-                    top: offsetTop,
+                    top: targetPosition,
                     behavior: 'smooth'
                 });
             }
@@ -55,12 +144,15 @@ function setupHeroButtons() {
     }
     
     if (learnMoreBtn) {
-        learnMoreBtn.addEventListener('click', () => {
+        learnMoreBtn.addEventListener('click', (e) => {
+            e.preventDefault();
             const aboutSection = document.getElementById('about');
             if (aboutSection) {
-                const offsetTop = aboutSection.offsetTop - 80;
+                const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                const targetPosition = aboutSection.offsetTop - navbarHeight;
+                
                 window.scrollTo({
-                    top: offsetTop,
+                    top: targetPosition,
                     behavior: 'smooth'
                 });
             }
@@ -71,9 +163,7 @@ function setupHeroButtons() {
 // Scroll effects
 function setupScrollEffects() {
     window.addEventListener('scroll', handleScroll);
-    
-    // Initial check
-    handleScroll();
+    handleScroll(); // Initial check
 }
 
 function handleScroll() {
@@ -89,7 +179,7 @@ function handleScroll() {
         isScrolled = false;
     }
     
-    // Fade in animations
+    // Animate fade-in elements as they come into view
     const fadeElements = document.querySelectorAll('.fade-in');
     fadeElements.forEach(element => {
         const elementTop = element.getBoundingClientRect().top;
@@ -99,6 +189,19 @@ function handleScroll() {
             element.classList.add('visible');
         }
     });
+    
+    // Animate counters when about section is in view
+    const aboutSection = document.getElementById('about');
+    if (aboutSection) {
+        const aboutTop = aboutSection.getBoundingClientRect().top;
+        if (aboutTop < window.innerHeight / 2 && aboutTop > -aboutSection.offsetHeight / 2) {
+            // Only animate counters once
+            if (!aboutSection.dataset.animated) {
+                animateCounters();
+                aboutSection.dataset.animated = 'true';
+            }
+        }
+    }
 }
 
 // Mobile menu setup
@@ -123,32 +226,9 @@ function setupMobileMenu() {
     }
 }
 
-// Smooth scrolling setup
-function setupSmoothScrolling() {
-    const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
-    
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = link.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-            
-            if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 80; // Account for navbar height
-                
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-}
-
 // Form handling 
 function setupFormHandling() {
     const contactForm = document.getElementById('contactForm');
-    
     if (contactForm) {
         contactForm.addEventListener('submit', handleFormSubmit);
     }
@@ -160,59 +240,43 @@ async function handleFormSubmit(e) {
     const formData = new FormData(e.target);
     const formValues = Object.fromEntries(formData);
     
-    // Get current language from global manager
     const currentLanguage = window.languageManager ? window.languageManager.getCurrentLanguage() : 'sv';
     formValues.language = currentLanguage;
     
-    console.log('Form submission with language:', currentLanguage, formValues);
-    
-    // Validate form first
     if (!validateForm(formValues)) {
         showMessage('error', currentLanguage === 'en' ? 'Please fill in all required fields.' : 'Vänligen fyll i alla obligatoriska fält.');
         return;
     }
     
-    // Show loading state
     const submitButton = e.target.querySelector('button[type="submit"]');
     const originalText = submitButton.textContent;
     submitButton.disabled = true;
     submitButton.textContent = currentLanguage === 'en' ? 'Sending...' : 'Skickar...';
     
     try {
-        // Send data to your backend server
         const response = await fetch('/contact', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formValues)
         });
         
         const result = await response.json();
         
         if (response.ok && result.success) {
-            // Show success message
             showMessage('success', currentLanguage === 'en' ? 
                 'Message sent successfully! We will get back to you within 24 hours.' : 
                 'Meddelandet skickades framgångsrikt! Vi återkommer till dig inom 24 timmar.');
-            
-            // Reset form
             e.target.reset();
-            
-            console.log('Form submitted successfully:', formValues);
         } else {
-            // Show error message from server
             showMessage('error', result.message || (currentLanguage === 'en' ? 
                 'Failed to send message. Please try again.' : 
                 'Misslyckades att skicka meddelandet. Försök igen.'));
         }
     } catch (error) {
-        console.error('Error submitting form:', error);
         showMessage('error', currentLanguage === 'en' ? 
             'Network error. Please check your connection and try again.' : 
             'Nätverksfel. Kontrollera din anslutning och försök igen.');
     } finally {
-        // Reset button state
         submitButton.disabled = false;
         submitButton.textContent = originalText;
     }
@@ -228,7 +292,6 @@ function isValidEmail(email) {
 }
 
 function showMessage(type, message) {
-    // Create message element
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${type}`;
     messageDiv.textContent = message;
@@ -251,13 +314,11 @@ function showMessage(type, message) {
     
     document.body.appendChild(messageDiv);
     
-    // Animate in
     setTimeout(() => {
         messageDiv.style.opacity = '1';
         messageDiv.style.transform = 'translateX(0)';
     }, 100);
     
-    // Remove after 5 seconds (longer for error messages)
     const removeDelay = type === 'error' ? 7000 : 5000;
     setTimeout(() => {
         messageDiv.style.opacity = '0';
@@ -270,123 +331,39 @@ function showMessage(type, message) {
     }, removeDelay);
 }
 
-// Newsletter subscription handler
-function setupNewsletterHandling() {
-    const newsletterForm = document.getElementById('newsletterForm');
-    
-    if (newsletterForm) {
-        newsletterForm.addEventListener('submit', handleNewsletterSubmit);
-    }
-}
-
-async function handleNewsletterSubmit(e) {
-    e.preventDefault();
-    
-    const formData = new FormData(e.target);
-    const email = formData.get('email');
-    
-    // Get current language from global manager
-    const currentLanguage = window.languageManager ? window.languageManager.getCurrentLanguage() : 'sv';
-    
-    if (!isValidEmail(email)) {
-        showMessage('error', currentLanguage === 'en' ? 
-            'Please enter a valid email address.' : 
-            'Ange en giltig e-postadress.');
-        return;
-    }
-    
-    const submitButton = e.target.querySelector('button[type="submit"]');
-    const originalText = submitButton.textContent;
-    submitButton.disabled = true;
-    submitButton.textContent = currentLanguage === 'en' ? 'Subscribing...' : 'Prenumererar...';
-    
-    try {
-        const response = await fetch('/newsletter', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ 
-                email, 
-                language: currentLanguage
-            })
-        });
-        
-        const result = await response.json();
-        
-        if (response.ok && result.success) {
-            showMessage('success', currentLanguage === 'en' ? 
-                'Successfully subscribed to newsletter!' : 
-                'Framgångsrikt prenumererat på nyhetsbrevet!');
-            e.target.reset();
-        } else {
-            showMessage('error', result.message || (currentLanguage === 'en' ? 
-                'Failed to subscribe. Please try again.' : 
-                'Misslyckades att prenumerera. Försök igen.'));
-        }
-    } catch (error) {
-        console.error('Error subscribing to newsletter:', error);
-        showMessage('error', currentLanguage === 'en' ? 
-            'Network error. Please try again.' : 
-            'Nätverksfel. Försök igen.');
-    } finally {
-        submitButton.disabled = false;
-        submitButton.textContent = originalText;
-    }
-}
-
 // Animation setup
 function setupAnimations() {
-    // Add fade-in class to elements that should animate
     const animateElements = document.querySelectorAll('.service-card, .expertise-card, .about-text, .about-image');
     animateElements.forEach(element => {
         element.classList.add('fade-in');
     });
-    
-    // Counter animation for stats
-    animateCounters();
 }
 
 function animateCounters() {
     const counters = document.querySelectorAll('.stat h3');
-    const speed = 200; // Animation speed
-    
-    const observerOptions = {
-        threshold: 0.5
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const counter = entry.target;
-                const target = parseInt(counter.textContent.replace(/\D/g, ''));
-                const increment = target / speed;
-                let current = 0;
-                
-                const timer = setInterval(() => {
-                    current += increment;
-                    if (current >= target) {
-                        counter.textContent = formatCounterValue(target);
-                        clearInterval(timer);
-                    } else {
-                        counter.textContent = formatCounterValue(Math.ceil(current));
-                    }
-                }, 1);
-                
-                observer.unobserve(counter);
-            }
-        });
-    }, observerOptions);
+    const speed = 200;
     
     counters.forEach(counter => {
-        observer.observe(counter);
+        const target = parseInt(counter.textContent.replace(/\D/g, ''));
+        const increment = target / speed;
+        let current = 0;
+        
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                counter.textContent = formatCounterValue(target);
+                clearInterval(timer);
+            } else {
+                counter.textContent = formatCounterValue(Math.ceil(current));
+            }
+        }, 1);
     });
 }
 
 function formatCounterValue(value) {
-    if (value >= 500) return '500+';
+    if (value >= 50) return '50+';
     if (value >= 98) return '98%';
-    if (value >= 15) return '15+';
+    if (value >= 30) return '30+';
     return value.toString();
 }
 
@@ -403,21 +380,8 @@ function debounce(func, wait) {
     };
 }
 
-// Initialize all form handlers when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    setupFormHandling();
-    setupNewsletterHandling();
-    setupAnimations();
-});
-
-// Add loading class when page loads
-window.addEventListener('load', () => {
-    document.body.classList.add('loading');
-});
-
 // Handle resize events
 window.addEventListener('resize', debounce(() => {
-    // Handle any resize-specific logic here
     const navMenu = document.querySelector('.nav-menu');
     const hamburger = document.querySelector('.hamburger');
     
@@ -427,17 +391,35 @@ window.addEventListener('resize', debounce(() => {
     }
 }, 250));
 
-// Debug function to test language switching
-window.debugLanguage = function() {
-    if (window.languageManager) {
-        console.log('Current language:', window.languageManager.getCurrentLanguage());
-        console.log('Available translations:', Object.keys(window.translations));
-        console.log('Elements with data attributes:', document.querySelectorAll('[data-en], [data-sv]').length);
+// Add page loading effect
+window.addEventListener('load', () => {
+    document.body.classList.add('loading');
+});
+
+// API for external navigation (updated for smooth scrolling)
+window.navigateToSection = function(sectionId) {
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+        const navbarHeight = document.querySelector('.navbar').offsetHeight;
+        const targetPosition = targetSection.offsetTop - navbarHeight;
         
-        // Test language toggle
-        console.log('Testing language toggle...');
-        window.languageManager.toggleLanguage();
-    } else {
-        console.error('Global language manager not available');
+        window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+        });
+        
+        updateActiveNavLink(sectionId);
     }
+};
+
+// Get current section
+window.getCurrentSection = function() {
+    return currentSection;
+};
+
+// Debug function
+window.debugNavigation = function() {
+    console.log('Current section:', currentSection);
+    console.log('Available sections:', Array.from(document.querySelectorAll('section[id]')).map(s => s.id));
+    console.log('Scroll position:', window.pageYOffset);
 };

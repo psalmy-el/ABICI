@@ -33,12 +33,12 @@ body {
 }
 
 .language-controls {
-    position: absolute;
-    top: 20px;
-    right: 20px;
     display: flex;
+    justify-content: flex-end;
     align-items: center;
     gap: 10px;
+    margin-bottom: 20px;
+    padding: 0 20px;
 }
 
 .lang-toggle {
@@ -71,7 +71,6 @@ body {
     align-items: center;
     gap: 5px;
     transition: background-color 0.3s ease;
-    margin-right: 10px;
 }
 
 .home-button:hover {
