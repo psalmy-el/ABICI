@@ -121,7 +121,7 @@ const createTransporter = () => {
         },
         // Generic SMTP configuration with timeout and connection settings
         {
-            host: process.env.SMTP_HOST || 'smtp.gmail.com',
+            host: process.env.SMTP_HOST || 'smtp.hostinger.com',
             port: parseInt(process.env.SMTP_PORT) || 587,
             secure: process.env.SMTP_PORT === '465', // true for 465, false for other ports
             auth: {
@@ -218,7 +218,7 @@ const generateEmailTemplate = (title, content, footerContent, language = 'en') =
 
 // Routes
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'abici.html'));
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.get('/about', (req, res) => {
